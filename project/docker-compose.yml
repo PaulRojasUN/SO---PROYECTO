@@ -1,0 +1,18 @@
+
+version: "3.3"
+services:
+  postgres:
+    image: postgres
+    restart: always
+    ports:
+      - '5432:5432'
+    environment:
+      - DATABASE_HOST='127.0.0.1'
+      - POSTGRES_PASSWORD='1234'
+      - POSTGRES_DB='hitscounter'
+  web:
+    build: .
+    ports:
+      - "8000:5000"
+    depends_on:
+      - postgres
