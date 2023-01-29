@@ -26,9 +26,29 @@ def get_hit_count():
     data = cursor.fetchone()
     return data[0]
 
-
 @app.route('/')
 def hello():
     count = get_hit_count()
-    return 'Hello World! I have been seen {} times.\n'.format(count)    
+    return 'Hello World! I have been seen {} times.\n'.format(count)
 
+@app.route('/hi')
+def index():
+    return "hsdsdsd!"
+
+@app.route('/getHits', methods=['GET'])
+def getHits():
+    cursor.execute("SELECT * FROM Hits")
+    data = cursor.fetchone()
+    count = data[0]
+    return 'El valor de hits es {} .\n'.format(count)
+
+@app.route('/resetHits', methods=['GET'])
+def resetHits():
+    cursor.execute("UPDATE Hits SET value=0")
+    return "se ha reseteado el valor hits, ahora es cero \n"
+
+@app.route('/setHits/<int:newHits>', methods=['GET'])
+def setHits(newHits):
+    hits = newHits
+    cursor.execute("UPDATE Hits SET value= {}".format(hits))
+    return "el valor de hits se cambio a {} \n".format(hits)
