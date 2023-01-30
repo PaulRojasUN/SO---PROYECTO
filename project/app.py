@@ -42,13 +42,15 @@ def getHits():
     count = data[0]
     return 'El valor de hits es {} .\n'.format(count)
 
-@app.route('/resetHits', methods=['GET'])
+@app.route('/resetHits', methods=['DELETE'])
 def resetHits():
     cursor.execute("UPDATE Hits SET value=0")
     return "se ha reseteado el valor hits, ahora es cero \n"
+#EJEMPLO en una terminal a parte:  curl -i -X DELETE http://localhost:8000/resetHits
 
-@app.route('/setHits/<int:newHits>', methods=['GET'])
+@app.route('/setHits/<int:newHits>', methods=['PUT'])
 def setHits(newHits):
     hits = newHits
     cursor.execute("UPDATE Hits SET value= {}".format(hits))
     return "el valor de hits se cambio a {} \n".format(hits)
+#EJEMPLO en una terminal a parte:  curl -i -X PUT http://localhost:8000/setHits/23
