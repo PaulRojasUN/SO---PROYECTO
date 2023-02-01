@@ -54,3 +54,11 @@ def setHits(newHits):
     cursor.execute("UPDATE Hits SET value= {}".format(hits))
     return "el valor de hits se cambio a {} \n".format(hits)
 #EJEMPLO en una terminal a parte:  curl -i -X PUT http://localhost:8000/setHits/23
+
+@app.route('/setHitsAgain/<int:newHits>', methods=['POST'])
+def setHitsAgain(newHits):
+    hits = newHits
+    cursor.execute("UPDATE Hits SET value= {}".format(hits))
+    return "el valor de hits se ACTUALIZO a {} \n".format(hits)
+#Es la misma funcion que setHits() con otro nombre
+#EJEMPLO en una terminal a parte:  curl -i -X POST http://localhost:8000/setHitsAgain/23
